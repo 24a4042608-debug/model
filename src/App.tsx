@@ -110,7 +110,7 @@ export default function App() {
 
   // Connection configurations
   const [isSimulation, setIsSimulation] = useState(false);
-  const [apiUrl, setApiUrl] = useState("http://localhost:8000");
+  const [apiUrl, setApiUrl] = useState("");
   const [botToken, setBotToken] = useState("");
   const [chatId, setChatId] = useState("");
   
@@ -121,7 +121,7 @@ export default function App() {
   useEffect(() => {
     // Configs
     const savedSim = localStorage.getItem("auto_is_sim") === "true";
-    const savedUrl = localStorage.getItem("auto_api_url") || "http://localhost:8000";
+    const savedUrl = localStorage.getItem("auto_api_url") !== null ? localStorage.getItem("auto_api_url")! : "";
     const savedToken = localStorage.getItem("auto_bot_token") || "";
     const savedChatId = localStorage.getItem("auto_chat_id") || "";
 
@@ -758,6 +758,12 @@ export default function App() {
           {activeTab === "telegram" && (
             <div className="flex flex-col gap-6">
               <TelegramPanel
+                apiUrl={apiUrl}
+                onChangeApiUrl={(url) => {
+                  setApiUrl(url);
+                  localStorage.setItem("auto_api_url", url);
+                  checkBackendHealth(isSimulation, url);
+                }}
                 botToken={botToken}
                 chatId={chatId}
                 onChangeToken={(token) => handleSaveTelegramConfig(token, chatId)}

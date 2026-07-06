@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Activity, Plus, RefreshCw, Sparkles, TrendingUp, CheckCircle2, Table, Eye, LineChart } from "lucide-react";
+import { DashboardCharts } from "./DashboardCharts";
 
 interface DecisionEngineManagerProps {
   apiUrl: string;
@@ -630,127 +631,9 @@ export const DecisionEngineManager: React.FC<DecisionEngineManagerProps> = ({ ap
               </div>
             </div>
           </div>
-
-          {/* Detailed stats grids */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Top performing campaigns list */}
-            <div className="section-card flex flex-col p-5 bg-zinc-900/40 border border-zinc-800/80 rounded-lg md:col-span-2">
-              <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-4">Top 5 Chiến dịch Ads Sinh Lợi Tốt Nhất</h3>
-              <div className="flex flex-col gap-3">
-                {(() => {
-                  const productSummaryMap: { [pid: string]: { profit: number; gmv: number; roasSum: number; count: number } } = {};
-                  dataset.forEach(r => {
-                    if (!productSummaryMap[r.product_id]) {
-                      productSummaryMap[r.product_id] = { profit: 0, gmv: 0, roasSum: 0, count: 0 };
-                    }
-                    const entry = productSummaryMap[r.product_id];
-                    entry.profit += r.profit;
-                    entry.gmv += r.gmv;
-                    entry.roasSum += r.roas;
-                    entry.count += 1;
-                  });
-                  
-                  const productSummaries = Object.keys(productSummaryMap).map(pid => ({
-                    product_id: pid,
-                    profit: productSummaryMap[pid].profit,
-                    gmv: productSummaryMap[pid].gmv,
-                    avgRoas: productSummaryMap[pid].roasSum / productSummaryMap[pid].count,
-                  })).sort((a, b) => b.profit - a.profit).slice(0, 5);
-
-                  if (productSummaries.length === 0) {
-                    return <p className="text-zinc-500 text-xs py-4 text-center">Chưa có dữ liệu chiến dịch.</p>;
-                  }
-
-                  return productSummaries.map((tp, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-3 bg-zinc-900/60 border border-zinc-850 rounded-lg hover:border-violet-500/20 transition-all duration-200">
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 rounded-full bg-violet-600/10 text-violet-400 font-bold flex items-center justify-center text-xs">
-                          {idx + 1}
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="text-xs font-bold text-zinc-300 font-mono">{tp.product_id}</span>
-                          <span className="text-[10px] text-zinc-500">GMV: {Math.round(tp.gmv).toLocaleString("vi-VN")}đ | ROAS: {tp.avgRoas.toFixed(2)}x</span>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end">
-                        <span className="text-xs font-bold text-emerald-400">+{Math.round(tp.profit).toLocaleString("vi-VN")}đ</span>
-                        <span className="text-[9px] text-zinc-500 uppercase tracking-wider font-semibold">Lợi nhuận ròng</span>
-                      </div>
-                    </div>
-                  ));
-                })()}
-              </div>
-            </div>
-
-            {/* Performance Breakdown Indicators */}
-            <div className="section-card flex flex-col p-5 bg-zinc-900/40 border border-zinc-800/80 rounded-lg">
-              <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-4">Chỉ số Hiệu suất Vận hành</h3>
-              <div className="flex flex-col gap-4">
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-xxs text-zinc-400 font-semibold uppercase tracking-wider">Tỉ lệ CTR Trung bình</span>
-                    <span className="text-xs font-bold text-zinc-200">
-                      {(dataset.length > 0 ? dataset.reduce((sum, r) => sum + r.ctr, 0) / dataset.length : 0).toFixed(2)}%
-                    </span>
-                  </div>
-                  <div className="w-full bg-zinc-800 rounded-full h-1.5">
-                    <div 
-                      className="bg-sky-500 h-1.5 rounded-full" 
-                      style={{ width: `${Math.min(100, (dataset.length > 0 ? dataset.reduce((sum, r) => sum + r.ctr, 0) / dataset.length : 0) * 15)}%` }}
-                    ></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-xxs text-zinc-400 font-semibold uppercase tracking-wider">Tỉ lệ CVR Trung bình</span>
-                    <span className="text-xs font-bold text-zinc-200">
-                      {(dataset.length > 0 ? dataset.reduce((sum, r) => sum + r.cvr, 0) / dataset.length : 0).toFixed(2)}%
-                    </span>
-                  </div>
-                  <div className="w-full bg-zinc-800 rounded-full h-1.5">
-                    <div 
-                      className="bg-violet-500 h-1.5 rounded-full" 
-                      style={{ width: `${Math.min(100, (dataset.length > 0 ? dataset.reduce((sum, r) => sum + r.cvr, 0) / dataset.length : 0) * 10)}%` }}
-                    ></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-xxs text-zinc-400 font-semibold uppercase tracking-wider">Tỉ lệ Hoàn Hàng Trung bình</span>
-                    <span className="text-xs font-bold text-red-400">
-                      {(dataset.length > 0 ? dataset.reduce((sum, r) => sum + r.refund, 0) / dataset.length : 0).toFixed(2)}%
-                    </span>
-                  </div>
-                  <div className="w-full bg-zinc-800 rounded-full h-1.5">
-                    <div 
-                      className="bg-red-500/80 h-1.5 rounded-full" 
-                      style={{ width: `${Math.min(100, (dataset.length > 0 ? dataset.reduce((sum, r) => sum + r.refund, 0) / dataset.length : 0) * 20)}%` }}
-                    ></div>
-                  </div>
-                </div>
-
-                <div className="mt-4 pt-4 border-t border-zinc-800/80">
-                  <div className="flex items-center gap-2 text-xxs text-zinc-500 font-semibold uppercase tracking-wider mb-2">
-                    <Sparkles size={12} className="text-violet-400" />
-                    <span>Trạng thái Model Registry</span>
-                  </div>
-                  <div className="p-3 bg-zinc-900/60 border border-zinc-850 rounded-lg flex flex-col gap-1">
-                    <div className="flex justify-between text-xs text-zinc-300">
-                      <span>Thuật toán:</span>
-                      <span className="font-bold text-violet-400">{modelMeta?.algorithm || "Chưa huấn luyện"}</span>
-                    </div>
-                    <div className="flex justify-between text-xs text-zinc-300">
-                      <span>R² Accuracy:</span>
-                      <span className="font-bold text-emerald-400">
-                        {modelMeta?.accuracy ? `${(modelMeta.accuracy * 100).toFixed(1)}%` : "N/A"}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Charts Visualizations (GMV, Profit, CTR/CVR, Products breakdown) */}
+          <div className="w-full mt-2">
+            <DashboardCharts dataset={dataset} />
           </div>
         </div>
       )}
