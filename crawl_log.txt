@@ -1,0 +1,46 @@
+📖 Found 30 URLs in c:\Users\Admin\model\extracted_links.txt.
+🚀 Need to crawl details for 30 new products.
+🌐 Connecting to Chrome via CDP on port 9222...
+⚠️ CDP connection failed: BrowserType.connect_over_cdp: connect ECONNREFUSED 127.0.0.1:9222
+Call log:
+  - <ws preparing> retrieving websocket url from http://127.0.0.1:9222
+
+🔄 Launching Chrome directly using persistent profile...
+✅ Successfully launched persistent Chrome browser!
+
+[1/30] Crawling: https://shopee.vn/Áo-Khoác-Cardigan-Nữ-Dáng-Dài-Có-Cúc-Basic-Thanh-Lịch-BYJANE-–...
+⚠️ Shopee anti-bot detected! (Attempts: 1)
+👉 VUI LÒNG KIỂM TRA TRÌNH DUYỆT CHROME ĐANG MỞ VÀ GIẢI CAPTCHA NẾU CÓ!
+❌ Still blocked. Skipping this product.
+
+[2/30] Crawling: https://shopee.vn/Áo-khoác-Cardigan-dáng-vừa-midway-thanh-lịch-co-dãn-4-chiều-BY...
+⚠️ Shopee anti-bot detected! (Attempts: 2)
+👉 VUI LÒNG KIỂM TRA TRÌNH DUYỆT CHROME ĐANG MỞ VÀ GIẢI CAPTCHA NẾU CÓ!
+❌ Still blocked. Skipping this product.
+
+[3/30] Crawling: https://shopee.vn/(-KO-MÚT-KÈM-MÚT-)-Áo-Ống-ôm-body-Áo-quây-nhiều-màu-vải-cotton...
+⚠️ Shopee anti-bot detected! (Attempts: 3)
+👉 VUI LÒNG KIỂM TRA TRÌNH DUYỆT CHROME ĐANG MỞ VÀ GIẢI CAPTCHA NẾU CÓ!
+❌ Still blocked. Skipping this product.
+
+[4/30] Crawling: https://shopee.vn/Áo-Cardigan-Nữ-Dáng-Ngắn-Croptop-Tay-Dài-Co-Giãn-4-Chiều-Cotto...
+⚠️ Shopee anti-bot detected! (Attempts: 4)
+👉 VUI LÒNG KIỂM TRA TRÌNH DUYỆT CHROME ĐANG MỞ VÀ GIẢI CAPTCHA NẾU CÓ!
+❌ Still blocked. Skipping this product.
+
+[5/30] Crawling: https://shopee.vn/Áo-Thun-Nữ-Cổ-Vuông-Ôm-Body-Tay-Ngắn-Cotton-Co-Giãn-4-Chiều-Mề...
+⚠️ Shopee anti-bot detected! (Attempts: 5)
+👉 VUI LÒNG KIỂM TRA TRÌNH DUYỆT CHROME ĐANG MỞ VÀ GIẢI CAPTCHA NẾU CÓ!
+❌ Still blocked. Skipping this product.
+
+[6/30] Crawling: https://shopee.vn/-MÀU-PASTEL-Áo-Thun-Nữ-Ôm-Body-BYJANE-Thắt-Eo-Chất-Thun-Mịn-Co...
+⚠️ Shopee anti-bot detected! (Attempts: 6)
+👉 VUI LÒNG KIỂM TRA TRÌNH DUYỆT CHROME ĐANG MỞ VÀ GIẢI CAPTCHA NẾU CÓ!
+❌ Still blocked. Skipping this product.
+
+[7/30] Crawling: https://shopee.vn/Áo-Thun-Nữ-Thắt-Eo-Ôm-Body-BYJANE-chất-cotton-trơn-co-dãn-4-ch...
+⚠️ Shopee anti-bot detected! (Attempts: 7)
+👉 VUI LÒNG KIỂM TRA TRÌNH DUYỆT CHROME ĐANG MỞ VÀ GIẢI CAPTCHA NẾU CÓ!
+❌ Still blocked. Skipping this product.
+
+[8/30] Crawling: https://shopee.vn/(XẢ-KHO)-Áo-Thun-Nữ-Dài-Tay-Cổ-Vuông-Ôm-Body-Chất-Cotton-Co-Gi...

@@ -1,0 +1,13 @@
+{
+  "active_version": "1.0.0",
+  "models": [
+    {
+      "algorithm": "XGBoost",
+      "version": "1.0.0",
+      "accuracy": 0.0,
+      "dataset_size": 100,
+      "train_time": "2026-07-06 11:02:57",
+      "path": "version_1.0.0"
+    }
+  ]
+}

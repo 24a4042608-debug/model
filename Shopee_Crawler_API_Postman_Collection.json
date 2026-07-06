@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "a1c5d9bf-84c1-4b10-8b43-9ad14c51480f",
+		"name": "Shopee Crawler & Automation API",
+		"description": "Bộ API để cào sản phẩm từ cửa hàng Shopee (bằng HTTP Request hoặc Playwright CDP) và kiểm tra trạng thái cào.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Khởi chạy Chrome Debug Mode",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/launch-chrome",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"launch-chrome"
+					]
+				},
+				"description": "Lệnh tự động mở trình duyệt Google Chrome chính của máy bạn ở chế độ Remote Debugging trên cổng 9222."
+			},
+			"response": []
+		},
+		{
+			"name": "2. Cào Shop bằng HTTP Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"url\": \"https://shopee.vn/byjane.hn#product_list\",\n  \"method\": \"http\",\n  \"cookie\": \"\",\n  \"max_products\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/crawl-shop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"crawl-shop"
+					]
+				},
+				"description": "Khởi động tiến trình cào ngầm bằng HTTP request (Googlebot User-Agent). Cần dán Cookie Shopee nếu bị chặn đăng nhập."
+			},
+			"response": []
+		},
+		{
+			"name": "3. Cào Shop bằng Playwright Chrome CDP",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"url\": \"https://shopee.vn/byjane.hn#product_list\",\n  \"method\": \"cdp\",\n  \"cookie\": \"\",\n  \"max_products\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/crawl-shop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"crawl-shop"
+					]
+				},
+				"description": "Khởi động tiến trình cào tự động thông qua Chrome Debug (cổng 9222) sử dụng Playwright."
+			},
+			"response": []
+		},
+		{
+			"name": "4. Cào từ Tab Chrome Đang Mở",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/crawl-active-tab",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"crawl-active-tab"
+					]
+				},
+				"description": "Cào nhanh các sản phẩm từ tab Shopee hiện tại đang hoạt động trên cửa sổ Chrome Debug chính."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Xem Trạng Thế Tiến Trình Cào",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/crawl-shop/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"crawl-shop/status"
+					]
+				},
+				"description": "Truy xuất log, trạng thái cào, số lượng sản phẩm đã cào thành công/bỏ qua/lỗi theo thời gian thực."
+			},
+			"response": []
+		},
+		{
+			"name": "6. Dừng Tiến Trình Cào",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/crawl/stop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"crawl",
+						"stop"
+					]
+				},
+				"description": "Gửi yêu cầu dừng an toàn tiến trình cào hiện tại."
+			},
+			"response": []
+		}
+	]
+}

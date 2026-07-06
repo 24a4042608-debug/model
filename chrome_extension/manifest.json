@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Shopee Automation Grabber",
+  "version": "1.0.0",
+  "description": "Tự động trích xuất thông tin sản phẩm từ Shopee và đồng bộ hóa với hệ thống E-Commerce Automation Backend.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://shopee.vn/*",
+    "http://localhost:8000/*",
+    "http://127.0.0.1:8000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://shopee.vn/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ]
+}

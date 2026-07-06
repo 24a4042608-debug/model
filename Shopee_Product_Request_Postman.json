@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "a34fd912-32b4-4ef5-9f5b-1c5c4d621980",
+		"name": "Shopee Googlebot Request",
+		"description": "Yêu cầu GET chi tiết sản phẩm Shopee mô phỏng Googlebot User-Agent.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Shopee Product (Googlebot)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Googlebot/2.1 (+http://www.google.com/bot.html)",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"type": "text"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://shopee.vn/product/145199886/43361044265?exp_group=rollout",
+					"protocol": "https",
+					"host": [
+						"shopee",
+						"vn"
+					],
+					"path": [
+						"product",
+						"145199886",
+						"43361044265"
+					],
+					"query": [
+						{
+							"key": "exp_group",
+							"value": "rollout"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
