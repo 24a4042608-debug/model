@@ -27,7 +27,16 @@ SEASONAL_BETA_TABLE = {
 WEIGHTS_PATH = "models/factor_weights.json"
 DEFAULT_WEIGHTS = {"w1": 0.3, "w2": 0.4, "w3": 0.2, "w4": 0.1}
 
-def load_weights() -> dict:
+def load_weights(db=None) -> dict:
+    if db:
+        try:
+            from automation.database.models import SystemSetting
+            setting = db.query(SystemSetting).filter(SystemSetting.key == "factor_weights").first()
+            if setting:
+                return setting.value
+        except Exception as e:
+            print(f"Error loading weights from DB: {e}")
+            
     if os.path.exists(WEIGHTS_PATH):
         try:
             with open(WEIGHTS_PATH, "r") as f:
@@ -36,7 +45,21 @@ def load_weights() -> dict:
             pass
     return DEFAULT_WEIGHTS
 
-def save_weights(weights: dict):
+def save_weights(weights: dict, db=None):
+    if db:
+        try:
+            from automation.database.models import SystemSetting
+            setting = db.query(SystemSetting).filter(SystemSetting.key == "factor_weights").first()
+            if not setting:
+                setting = SystemSetting(key="factor_weights", value=weights)
+                db.add(setting)
+            else:
+                setting.value = weights
+            db.commit()
+            return
+        except Exception as e:
+            print(f"Error saving weights to DB: {e}")
+            
     os.makedirs("models", exist_ok=True)
     with open(WEIGHTS_PATH, "w") as f:
         json.dump(weights, f, indent=2)

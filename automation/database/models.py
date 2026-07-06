@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, Numeric, DateTime, JSON, Float, create_engine
+from sqlalchemy import Column, Integer, String, Text, Numeric, DateTime, JSON, Float, create_engine, UniqueConstraint
 from sqlalchemy.orm import declarative_base, sessionmaker
 from dotenv import load_dotenv
 
@@ -109,8 +109,8 @@ class TrainingDataset(Base):
     __tablename__ = "training_dataset"
     
     id = Column(Integer, primary_key=True, autoincrement=True)
-    product_id = Column(String(100), nullable=False)
-    date = Column(String(50), nullable=False) # Format: YYYY-MM-DD
+    product_id = Column(String(100), nullable=False, index=True)
+    date = Column(String(50), nullable=False, index=True) # Format: YYYY-MM-DD
     ctr = Column(Numeric(12, 4), nullable=False)
     cvr = Column(Numeric(12, 4), nullable=False)
     cpc = Column(Numeric(12, 2), nullable=False)
@@ -121,11 +121,15 @@ class TrainingDataset(Base):
     profit = Column(Numeric(12, 2), nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
+    __table_args__ = (
+        UniqueConstraint('product_id', 'date', name='uix_product_date'),
+    )
+
 class MLModel(Base):
     __tablename__ = "models"
     
     id = Column(Integer, primary_key=True, autoincrement=True)
-    product_id = Column(String(100), nullable=False)
+    product_id = Column(String(100), nullable=False, index=True)
     algorithm = Column(String(100), nullable=False)
     version = Column(String(50), nullable=False)
     accuracy = Column(Numeric(12, 4))
@@ -137,11 +141,18 @@ class MLPrediction(Base):
     __tablename__ = "predictions"
     
     id = Column(Integer, primary_key=True, autoincrement=True)
-    product_id = Column(String(100), nullable=False)
+    product_id = Column(String(100), nullable=False, index=True)
     input_json = Column(JSON)
     output_json = Column(JSON)
     confidence = Column(Numeric(12, 2))
     created_at = Column(DateTime, default=datetime.utcnow)
+
+class SystemSetting(Base):
+    __tablename__ = "system_settings"
+    
+    key = Column(String(100), primary_key=True)
+    value = Column(JSON, nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 engine = init_db()
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

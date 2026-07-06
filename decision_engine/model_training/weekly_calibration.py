@@ -4,7 +4,7 @@ import numpy as np
 from datetime import datetime
 from .trainer.dynamic_factors import load_weights, save_weights, SEASONAL_BETA_TABLE
 
-def calibrate(df_actual: pd.DataFrame, df_predicted: pd.DataFrame):
+def calibrate(df_actual: pd.DataFrame, df_predicted: pd.DataFrame, db=None):
     """
     df_actual: cột roas_actual, gmv_actual, profit_actual
     df_predicted: cột roas_adj, gmv_adj, profit_adj, alpha, beta, gamma, delta
@@ -26,7 +26,7 @@ def calibrate(df_actual: pd.DataFrame, df_predicted: pd.DataFrame):
     # Tính error theo từng factor group
     merged["error_log"] = np.log(merged["roas_actual"] / np.clip(merged["roas_adj"], 0.01, None))
     
-    w = load_weights()
+    w = load_weights(db)
     lr = 0.05 # learning rate
     
     # Gradient descent đơn giản trên log-loss
@@ -35,7 +35,7 @@ def calibrate(df_actual: pd.DataFrame, df_predicted: pd.DataFrame):
         grad = -2.0 * (merged["error_log"] * factor_deviation).mean()
         w[key] = float(np.clip(w[key] - lr * grad, 0.05, 0.8))
         
-    save_weights(w)
+    save_weights(w, db)
     
     # Cập nhật bảng beta theo tháng từ thực tế
     if "date" in merged.columns:
