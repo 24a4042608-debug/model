@@ -1,3 +1,4 @@
+import numpy as np
 from ...model_training.registry.registry import load_active_models
 from ...model_training.trainer.trainer import FEATURE_COLS
 

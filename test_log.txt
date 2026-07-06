@@ -1,5 +1,0 @@
-====================================================
-🧪 STARTING INTEGRATED SYSTEM TESTS FOR API ENDPOINTS
-====================================================
-
-Test 1: GET /api/system-status...

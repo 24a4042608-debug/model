@@ -1,5 +1,5 @@
 {
-  "active_version": "1.0.0",
+  "active_version": "1.0.2",
   "models": [
     {
       "algorithm": "XGBoost",
@@ -8,6 +8,22 @@
       "dataset_size": 100,
       "train_time": "2026-07-06 11:02:57",
       "path": "version_1.0.0"
+    },
+    {
+      "algorithm": "XGBoost",
+      "version": "1.0.1",
+      "accuracy": 0.1141,
+      "dataset_size": 120,
+      "train_time": "2026-07-06 21:43:46",
+      "path": "version_1.0.1"
+    },
+    {
+      "algorithm": "XGBoost",
+      "version": "1.0.2",
+      "accuracy": 0.5641,
+      "dataset_size": 120,
+      "train_time": "2026-07-06 21:45:10",
+      "path": "version_1.0.2"
     }
   ]
 }
